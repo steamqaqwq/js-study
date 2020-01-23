@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">g
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+    	// 设置表行
+    	let tr = 5
+    	function table(options = {tr:10,td : 5}){
+		//表开头
+    	document.write('<table border = "1" width="100">');
+    	tr = options.tr
+    	// 循环打印出表的行数
+    	while (tr-- !=0) {
+    		// 设置表的列(单元格)
+    		document.write('<tr>');
+    		td  = options.td
+    		while (td-- !=0) {
+    			document.write('<td>'+td+'</td>');
+    		}
+    		document.write('</td>');
+    	}
+    	document.write('</table>')
+   	}
+    	table({tr :5, td :5})
+    </script>
+</body>
+</html>
