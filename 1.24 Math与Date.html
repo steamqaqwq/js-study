@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script type="text/javascript">
+		// console.log(Math.floor(Math.random()*5))
+		/*let array1 = [1,2,3,4,5]
+		let array2 = ["aaa","bbb","ccc","ddd"]
+		//放入数组,指定随机取值的方法
+		function arrayRamdom(array,start=1,end){
+			start--
+			end = end?end:array.length
+			ram = start+Math.floor(Math.random()*(end - start))
+			console.log(`end:${end},start:${start},ram:${ram}`)
+			console.log(array[ram])
+			// console.log(ram)
+		}
+		arrayRamdom(array1,2,4)*/
+
+		// const date = new Date();
+		// console.log(date)
+		// console.log(typeof date)
+
+		// const newd = Date();
+		// console.log(typeof newd)
+		// console.log(Date.now())
+		// console.time("for")
+		// for(let i =0;i<20000000000;i++){}
+		// console.timeEnd("for")
+
+		// 提取时间各个属性值
+		let date = new Date('2020-01-24 16:03:22')
+		console.log(date)
+		console.log(date.getFullYear())
+		console.log(date.getMonth()+1)
+		console.log(date.getDay())
+		console.log(date.getHours())
+		console.log(date.getMinutes())
+		console.log(date.getSeconds())
+		//按格式 格式化时间
+		function formatDate(date,format = 'YYYY-MM-DD HH-mm-SS'){
+			config ={
+				YYYY:date.getFullYear(),
+				MM:date.getMonth()+1,
+				DD:date.getDay(),
+				HH:date.getHours(),
+				mm:date.getMinutes(),
+				SS:date.getSeconds(),
+			}
+			for(let key in config){
+				
+				config[key]=config[key]>=10?config[key]:'0'+config[key]
+				format = format.replace(key,config[key])
+			}
+			return format
+		}
+		console.log(formatDate(new Date()))
+	</script>
+</body>
+</html>
