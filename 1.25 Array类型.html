@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script type="text/javascript">
+		// 数组的创建
+		/*let array = new Array(5)
+		let array2 = new Array(1,2,4,6)
+		let array3 = Array.of(5)
+		console.log("结果1")
+		console.log(array)
+		console.table(array)
+		console.log("结果2")
+		console.log(array2)
+		console.table(array2)
+		console.log("结果3")
+		console.log(array3)
+		console.table(array3)*/
+
+		//数组转换
+		/*let array = [1,2,4]
+		let arr = array.toString()
+		let arr2 = String(array) 
+		let arr3 = array.join(",")
+		console.log(`arr:${arr},arr2:${arr2},arr3:${arr3}`)
+		console.log(typeof arr,typeof arr2,typeof arr3)
+		// console.log(location.href)
+		let obj = {0:"xu",1:"nan",length:2}
+
+		console.log(obj.length)
+		console.log(Array.from(obj))*/
+
+		// 解构赋值
+		let [a,...b] = [1,2,3,4]
+		let [c,,,d] =[a,...b]
+		console.log("a:"+a)
+		console.log("b:"+b)
+		console.log("c:"+c)
+		console.log("d:"+d)
+		let [name,year=1010,l] =["xu"]
+		console.log(name,year,l)
+	</script>
+</body>
+</html>
