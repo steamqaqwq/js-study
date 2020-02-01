@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+1.16 scriptlive
+script src
+"use strict"
+fucntion
+区域模块{}
+const
+Object.freeze(x)
+1.17
+n++ ++n
+x = x?ttt:sss
+document.querySelector('[name="ang"]')
+.addEventListener("keyup",function(){})
+
+innerHTML
+&& ||
+
+1.19
+continue 
+break
+label
+for in /for of
+1.21
+typeof 
+instanceOf
+\t \ \n \"
++ `${x}`
+function foo(string,...values){
+	console.log(string)
+	console.log(valuses)
+}
+foo`I am ${xu} frend`
+// ["I am ",""frend"]
+//["xu"]
+str.trim().length
+str.toUpperCase
+str.toLowerCase
+
+1.22
+substring 同slice 不负数
+substr 截取几个
+indexOf 返回索引 没有则-1
+startsWith(x) 首字母是否为x
+endsWith(x) 末字母是否为x
+includes() 返回bool
+lastIndexOf()
+replace pre aft
+repeat() 次数
+parseInt()
+toString()
+join()
+
+1.23
+let x = new Boolean(true)
+true ==1 false ==0
+转换: !!x //反转*2
+boolean()
+
+number.valueOf()
+number.isInteger(number)
+number.toFix(2)
+
+NaN not a number
+Number.isNaN(x)
+Object.is(x,NaN)
+
+1.24
+Math.max(1,2,5)
+Math.min(1,2,5)
+Math.max.apply(null,[1,3,5])
+向上取整
+Math.ceil(2.5)
+向下取整
+Math.floor
+四舍五入
+Math.round()
+保留小数点
+math.toFixed(3)
+随机数
+Math.random() (0,1)
+想最大就要*
+要包括最大就要 +
+
+const date = new Date()
+const x = Date()
+获取时间戳Date.now()
+let date = new Date(...arr)
+时间戳转ISO
+let date = new Date('2020-01-29 00:02:23')
+ISO 转 时间戳
+date *1
+Number(date)
+date.valueOf()
+date.getTime()
+转ISO
+new Date(时间戳)
+计时器
+setInterval(function,3000)
+
+1.25 Array
+console.table()
+Array.of(5) 长度为1
+new Array(5) 长度为5
+
+数组转换
+toString()
+String()
+.join()
+转数组
+str.split()
+Array.from(divs,fuciton(div){}) 能转数组,能迭代与map相同,对象要有长度 
+
+数组合并
+a b
+1 for循环.push()
+2 a = [...a,...b]
+改变思路,一个类型没有的方法可以转其他类型
+//Array.from(div) 转成数组
+数组迭代
+arr.map(fun(item))
+Array.from(arr,fun)
+
+解构赋值
+1 let [a,b] = [1,2]
+2 let [a,...b] = [1,2,3,4,5]
+3 let [a,b] = [...c,3]
+4 let [,a,b] = [1,2,3] // a =2
+5 let [name, year=1000] = [xu]
+6 console.log(..."hdcms")
+const [...arr] = "hdcms"
+
+1.27
+数组添加
+.push() 返回长度
+[...a,b]
+arr[arr.length] =i
+array.unshift() 从前面添加,返回长度
+
+删除
+.pop()
+.shift(i)
+
+填充
+arr(4).fill(i) // [i,i,i,i]
+arr.fill("i",1,2) //指定位置
+[i,"i",i,i]
+
+中间替换
+splice 改变原数组 slice 不改变
+arr = [1,2,3,4,5]
+1 splice(0,2) //[1,2] [...arr] 删除
+2 splice(0,0,"i","4") //[] ["i","4",...arr]添加
+3 splice(2,1,"i") //[3] [1,2,"i",4,5] 替换
+
+!数组的清空
+hd = [] →内存创建空数组
+hd.length =0 改变原来内存
+
+数组拆开与合并
+合并
+array.concat(i) #添加合并数组
+...arr
+数组复制
+arr = [1,2,3,4,5]
+arr.copyWithin(1,2,3) //[1,3,4,5,5]
+从1开始粘粘
+从2开始复制
+复制3个
+
+数组查找
+indexOf()
+.includes()
+.find(fun(i)) 返回数值 没有则underfind
+findIndex(fun(i)) 返回索引
+
+强类型: int
+弱类型 : var 
+
+动态: 运行过程检查
+静态: 编译过程检查
+
+数组的排序
+arr.sort(fun(a,b){return a-b/b-a#升/降})
+
+<body>
+	<script type="text/javascript">
+		"use strict"
+	/*	let lessons = [
+		{name:"xu1",sex:1},
+		{name:"xu2",sex:2},
+		{name:"xu3",sex:3}
+		]
+		lessons.forEach(function(item,i,lessons){
+			console.log(item.name)
+			item.name = [...item.name].splice(0,2).join("")
+			console.log(item.name)
+		})*/
+		let arr = [1,2,3,4,5]
+		const arr2 = [6,7]
+		// console.log(arr.fill("3",1,1))
+		// console.log(arr.splice(2,0,"i"),arr)
+		// console.log(arr.concat(...arr2))
+		console.log(arr.copyWithin(3,1,4))
+		//[1,2,3,2,3]
+		//2開始复制了3,4 从1 粘贴2个
+	</script>
+</body>
+</html>

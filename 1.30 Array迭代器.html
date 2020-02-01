@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script type="text/javascript">
+		let arr = ["name","sex","num"]
+		let arrkeys =arr.keys()
+		let arrvals =arr.values()
+		// let {value,done} = arrvals.next()
+		// console.log(arrvals.next())
+
+		console.log(arrkeys,arrvals)
+
+		// 遍历所有
+		// while(({value,done} = arrvals.next()) && done ===false){
+		// 	console.log(value,done)
+		// }
+
+		// 获取索引
+		// for (let i of arrkeys){
+		// 	console.log(i)
+		// }
+
+		// 获取值
+		/*for (let val of arrvals){
+			console.log(val)
+		}*/
+
+		// 键值对
+		let entries = arr.entries()
+		console.log(entries.next())
+		// value变数组 有索引及值还有长度
+		// 获取键值
+		/*for (let [keys,vals] of entries){
+			console.log(keys,vals)
+		}*/
+		// 对象解构获取所有
+		let {done:c,value:[a,b]}=entries.next()
+		console.log(a,b,c)
+	</script>
+</body>
+</html>

@@ -6,11 +6,12 @@
 </head>
 <body>
 
+
 	<script type="text/javascript">
 			// console.log(31%2)
 
-		function jiou(n){
-			r1:for (let i =1;i<=n;i++){
+			function jiou(n){
+				r1:for (let i =1;i<=n;i++){
 				// 三元表达式
 				// jiou = i%2 ? "奇数":"偶数"
 				//输出的值 = 判断条件 ? 输出1 : 输出2
@@ -19,7 +20,6 @@
 				//普通做法
 				// if(i%2)continue; //continue 跳过
 				// console.log(i+'是偶数')
-
 				// if (i%2){ //true 及奇数时执行
 				// 	console.log("跳过奇数")
 				// 	// continue 跳过本次循环
@@ -36,17 +36,17 @@
 				// }
 
 			// label标签的使用
-					r2:for (let n =0;n<=i;n++){
-						if(n+i>=10){
-							console.log("退出循环")
-							break r1
-						}else{
-							console.log(i,n,"还未到10")
-						}
-					}
+			r2:for (let n =0;n<=i;n++){
+				if(n+i>=10){
+					console.log("退出循环")
+					break r1
+				}else{
+					console.log(i,n,"还未到10")
+				}
 			}
+		}
 	}
-		jiou(20)
-	</script>
+	jiou(20)
+</script>
 </body>
 </html>

@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+
+
+</head>
+<body>
+	<input type="text" name="">
+	<span></span>
+	<script type="text/javascript">
+		score = [
+		{name:"xu",sc:88},
+		{name:"su",sc:5},
+		{name:"cu",sc:66}
+
+		]
+		/*		
+		let tf = score.every(item=>{
+			if(item.js>=60)
+				{console.log(item.sc+"及格")
+			return true
+		}else{
+			console.log("不及格")
+			return true
+		}
+
+	})*/
+		//every()用法
+		let tf = score.every(item=>{
+			// console.log(item.sc)
+			return item.sc>=60
+		})
+		console.log(tf?"及格":"有不及格")
+		//some()用法
+		let res = score.some(item=>{
+			return item.sc>=60
+		})
+		console.log(res?"及格":"有不及格")
+
+
+		// 示例 规范化输出提示
+		guize = ["xu","1959"]
+		val = document.querySelector("input")
+		span = document.querySelector("span")
+		val.addEventListener("keyup",function(){
+			guize.some(item=>{
+				span.innerHTML = val.value.includes(item)?"":"不含关键字"+guize.join("和")
+
+			})
+		})
+
+		//filter过滤元素 (提取指定元素)
+		score = [
+		{name:"xu",sc:88},
+		{name:"su",sc:5},
+		{name:"cu",sc:66}
+
+		]
+		console.table(score.filter(item=>{
+			return item.name == "su"
+		}))
+
+		//filter实现原理(1)
+		/*let arr = [1,2,3,5]
+		function filter(array,except){
+			let newArray =[]
+			//获取数组的每个值
+			for (const item of array){
+
+				if(except.includes(item)===false){newArray.push(item)
+					
+				}
+			}
+			return newArray
+		}
+		console.log(filter(arr,[1,2]))*/
+
+
+		//filter实现原理(2)
+		let arr = [1,2,3,5]
+		function filter(array,callback){
+			let newArray =[]
+			//获取数组的每个值
+			for (const item of array){
+
+				if(callback(item)===false){newArray.push(item)
+					
+				}
+			}
+			return newArray
+		}
+		console.log(filter(arr,function(item){
+			return item<5
+		}))
+
+		//map 映射 对数组进行二次操作
+		//可看情况用来修改引用类型或添加新数组
+		console.log("-------map1 str不变--------")
+
+		let maparr1 =["xu","su"]
+		let newarr1 = maparr1.map(item=>{item = "new"+item
+			return item})
+
+		console.log("maparr1  ↓")
+		console.table(maparr1)
+		console.log("New arrmap1  ↓")
+		console.table(newarr1)
+
+		console.log("-------map2 obj变--------")
+
+		let maparr2 =[{name:"xu"},{name:"su"}]
+		let newarr2 = maparr2.map(item=>{
+			item.click =100
+			return item
+		})
+
+		console.log("maparr2  ↓")
+		console.table(maparr2)
+		console.log("New arrmap2  ↓")
+		console.table(newarr2)
+
+		console.log("-------map2 obj不变--------")
+
+		let newarr3 = maparr2.map(item=>{
+			
+			//Object 对象的合并assign(target,sources)!!注意顺序
+			return Object.assign({hai:100},item)
+		})
+
+		console.log("maparr2  ↓")
+		console.table(maparr2)
+		console.log("New arrmap3  ↓")
+		console.table(newarr3)
+		console.log("-------reduce--------")
+		//reduce 使用 pre是每次返回值 默认为数组第一个或默认值
+		let redarr = [1,2,3,55,9,2,2,10]
+		redarr.reduce(function(pre,item,index,array){
+			console.log(`pre:${pre},item:${item}`)
+			return 55
+		},0)
+		// 示例 或取max值
+		function maxarr(arr,pre=0){
+			return arr.reduce(function(pre,item){
+				return pre>=item?pre:item
+			},pre)
+		}
+		console.log(maxarr(redarr))
+
+		//示例 获取和
+		function totalarr(arr,pre=0){
+			return arr.reduce(function(pre,item){
+				return pre+=item
+			},pre)
+		}
+		console.log(totalarr(redarr))
+		//示例 统计次数
+		function totalarr2(arr,pre=0,ci){
+			return arr.reduce(function(pre,item){
+				// console.log(pre,item,ci)
+				return ci==item?pre+=1:pre+=0
+			},pre)
+		}
+		console.log(totalarr2(redarr,0,2))
+	</script>
+</body>
+</html>

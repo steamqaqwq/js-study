@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+
+	<script type="text/javascript">
+		let arr = [1,2,3,4,5]
+		// 移动数组中某数字到哪
+		/*function arrMove(array,from,to){
+			if(from<0 || to >array.length){console.error("错误");return}
+			to--
+			from--
+			let newArr = [...array]
+			cut = newArr.splice(from,1)
+			newArr.splice(to,0,...cut)
+			console.log(cut)
+			return newArr
+		}
+		console.log(arrMosve(arr,1,5))*/
+
+
+		// newarr =arr.copyWithin(2,0,1)
+		// console.log(arr)
+		// console.log(newarr)
+
+		//find使用 以及includes弱项
+		// let arr2 = [{name:1},{name:2}]
+		// console.log(arr2.includes({name:1}))
+		// console.log(arr2.find(function(i){if(i.name ==1)return i}))
+
+
+		//重构find()
+	/*	function find(array,callback){
+ 			for(const value in array){
+  				if(callback(value)) {
+  					console.log(callback(value))
+  					return value;}
+				}
+					return "underfind";
+				}
+		console.log(find(arr,function(i){if(i==1)return i}))*/
+
+		// 排序
+		let arr3 = [1,3,6,2,4]
+		/*arr3.sort(function(a,b){
+			return b-a
+		})
+		console.log(arr3)*/
+		
+		function sort(array){
+			for(let i in array){ //0
+				// console.log(array)
+				// console.log("外循环"+(Number(i+1))+"次")
+				for (let j in array){ //0 1 2 3 4
+					// console.log("内循环")
+					if(array[i]<array[j]){
+						const first = array[i]
+						array[i] = array[j]
+						
+						array[j] = first
+
+					}
+				}
+				
+				console.log(array)
+			}
+
+		}
+		sort(arr3)
+	</script>
+</body>
+</html>
