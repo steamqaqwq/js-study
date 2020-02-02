@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+		*{
+			padding: 0;
+			margin:0;
+		}
+		body{
+			width: 100%;
+			height: 100vh;
+			display: flex;
+			background-color: #3498db;
+			justify-content: center;
+			align-items: center;
+			font-size: 30px;
+			line-height: 20px
+		}
+		div {
+			text-transform: uppercase;
+			color:#7F593FFF;
+		}
+		div span {
+			margin:vh 4vh;
+			position: relative;
+			display:inline-block;
+		}
+		.color {
+			animation-name: color;
+			animation-duration: 2s;
+			animation-iteration-count: 2;
+			animation-direction: alternate;
+			animation-timing-function: linear;
+		}
+		/*动画帧*/
+		@keyframes color {
+			50% {
+				color:#ecf0f1;
+				transform: scale(10)
+			}
+
+			to {
+				color:#e74c3c;
+				transform: scale(2);
+
+			}
+		}
+
+	</style>
+</head>
+<body>
+	<div>konodioda弟弟</div>
+	<!-- <span></span> -->
+	<script type="text/javascript">
+		// reduce 小练习------------------------------
+		/*let cart = [
+		{name:"水",price:66},
+		{name:"水",price:66},
+		{name:"可乐",price:99},
+		{name:"雪碧",price:100},
+		{name:"雪碧",price:100}
+		]
+		function filterCart(price){
+			return cart.reduce(function(arr,item){
+				if(item.price>price){
+					arr.push(item)
+					// console.log(arr)
+				}
+				return arr
+			},[]) 
+		}
+		function filterSame(arr){
+			return arr.reduce(function(pre,cur){
+				//找出pre里
+				console.log(pre,cur)
+				let find = pre.find(item =>
+					 item.name == cur.name
+				);
+				// 如果没有重复,就加入数组
+				if(!find){pre.push(cur)}
+					return pre
+				console.log(pre)
+			},[])
+		}
+		console.table(filterSame(cart))*/
+
+		// 炫酷特效的文本(综合练习)-------------------------------------------------------------------
+		let div = document.querySelector("div")
+		let arr = [...div.textContent]
+		console.log(arr)
+		arr.reduce(function(pre,item,index){
+			// console.log(pre,item,index)
+			if(pre == 0){
+				div.innerHTML =""
+			}
+			/*if (pre == index) span{
+				span.addEventListener("mouseout",function(){
+				this.classList.remove("color")
+			}
+		}*/
+
+			// (pre == index) && div.innerHTML =""
+			let span = document.createElement("span")
+			span.innerHTML = item
+			div.appendChild(span)
+			span.addEventListener("mouseover",function(){
+				this.classList.add("color")
+			// return pre+1
+			})
+			span.addEventListener("animationend",function(){
+				this.classList.remove("color")
+			})
+		},0)
+
+		// --------------------Symbol的使用----------------------------------------------
+		//Symbol 用于获取唯一(编号) 永不改变的字符串
+		//定义方式
+		console.warn("-------定义方法1-----------")
+		let xu = Symbol("姓名")
+		let sex = Symbol("姓名")
+		console.log(xu)
+		console.log(sex)
+		//获取Symbol的描述
+		console.log(".description:"+sex.description)
+		console.log(`xu == sex:${xu == sex}`)
+		console.log("-------定义方法2-----------")
+		//第二种 系统有记录全局变量 是引用类型,还可以用Symbol.keyFor()获取描述
+		let xu2 = Symbol.for("姓名2")
+		let sex2 = Symbol.for("姓名2")
+		console.log(xu2)
+		console.log(sex2)
+		console.log(`xu2 == sex2:${xu2 == sex2}`)
+		console.log("Symbol.keyFor:"+Symbol.keyFor(xu2))
+		console.log(xu2.description)
+		console.log("-------使用方法-----------")
+		// 为什么↓  覆盖了  中括号的适用
+		let students = {
+			张三:{js:100,css:50},
+			张三:{js:55,css:100}
+		}
+		console.table(students)
+		console.log('------记得中括号-------')
+		let user1 = {name:"李四",key:Symbol("一")}
+		let user2 = {name:"李四",key:Symbol("二")}
+		let students2 = {
+			[user1.key] : {js:66,css:10},
+			[user2.key] : {js:888 , css: 999}
+		}
+		console.table(students2[user1.key])
+		console.table(students2[user2.key])
+
+		console.log("-------symbol 缓存(容器)-----------")
+		// 主件共享一些数据 数据放到缓存区
+		// 数据用字符串可能重名 所以symbol
+		//缓存区↓
+		class Cache{
+			static data = {}
+			static set(name,value){
+				return this.data[name] = value
+			}
+			static get(name){
+				return this.data[name]
+			}
+		}
+		Cache.set("一","二")
+		console.log(Cache.get('一'))
+
+		let user = {
+			name:'xu',
+			grade:50,
+			key:Symbol("Yi-user")
+		}
+		let cart ={
+			name:'xu',
+			grade:999,
+			key:Symbol("Er-cart")
+
+		}
+		//同一用户,同时存放了2个数据 被覆盖了
+/*		Cache.set('xu',user)
+		Cache.set('xu',cart)
+		console.log(Cache.get('xu'))*/
+
+		Cache.set(user.key,user)
+		Cache.set(cart.cart,cart)
+		console.log(Cache.get(user.key))
+		console.log(Cache.get(user.cart))
+
+		// symbol 的 特性
+		let symbol = Symbol('一个名称')
+		let xu ={
+			name:'xu',
+			[symbol]:'steamqaqwq'
+		}
+		// 1.无法被for in for of 遍历到
+		// 2. 可以用 for key of Object.getOwnPropertySymbols(xu)
+		// 只能遍历到 symbol
+		// 3. 遍历所有 可以用 for of Reflect.ownKeys(xu) 
+		// 4.可以利用symbol 设置私有属性
+
+		let site = Symbol("this is Symbol")
+		class User {
+			constructor(name){
+				this.name = name;
+				this[site] = "xu"
+			}
+			getName(){
+				return `${this.name}  ${this[site]}`
+			}
+		}
+		let lisi = new User("李四")
+		for (const key in lisi ){
+			console.log(key) // 看不见site属性
+		}
+	</script>
+
+</body>
+</html>
