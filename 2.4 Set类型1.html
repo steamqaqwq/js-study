@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+		body {
+			padding: 200px
+		}
+		ul {
+			overflow: hidden;
+			width: 173px;
+			list-style-type: none;
+			margin:0;
+			padding: 0;
+			box-sizing: border-box;
+
+		}
+		li {
+			border-left:solid 1px #124;
+			border-right:solid 1px #124;
+			border-bottom:solid 1px #124;
+			border-radius: 5px
+			padding-left:10px;
+		}
+	</style>
+</head>
+<body>
+
+	<input type="text" name="x">
+	<ul></ul>
+
+	<script type="text/javascript">
+		// set 集合 严格类型 重复会覆盖
+		let set = new Set([0])
+		set.add(1)
+		set.add(3)
+		set.add(1)
+		console.log(set)
+		set.add(6)
+		set.add("1")
+		console.log(set)
+
+		console.log("-------------")
+		// 对象属性会↓变成字符串形式
+		// 1 → "1"
+		let obj ={
+			1:"xu",
+			// "1":"xu2"
+		}
+		console.log(obj[1])
+		// 将对象变为属性
+		let obj2 ={
+			[obj]: 'nb'
+		}
+		console.log(obj2[obj])
+		// ↑获取原理
+		console.log(obj2[obj.toString()])
+
+		// set 的增删改查
+		let set2 = new Set([1,2,3,4])
+		console.log(set2.size)
+		//删一个 有返回值
+		console.log(set2.delete(1))
+		console.log(set2,set2.size)
+		//全删 没有返回值
+		console.log(set2.clear())
+		console.log(set2,set2.size)
+
+		console.log("-------set基础结束----")
+
+		console.warn("---set 与数组思想")
+		// 类型转换思想2
+		let set3 = new Set("123456789")
+		//set用array过滤掉 <5
+		console.log(set3)
+
+		// let arr = Array.from(set3)
+		set3 = new Set(Array.from(set3).filter(item =>item>5))
+		console.log(set3)
+
+		let arr = [1,2,3,3,3,4,56,7]
+		console.log(arr)
+		// arr = Array.from(new Set(arr))
+		arr = [...new Set(arr)]
+		console.log(arr)
+
+		//set 遍历 set没有键名 所以key = value 为了统一
+		console.log("-------set 遍历--------")
+		console.log(set3.keys())
+		console.log(set3.values())
+		console.log(set3.entries())
+		set3.forEach(function(item,key,array){
+			console.log(item,key,array)
+		})
+		// for of 也可以
+
+		//set 练习 记录不重复关键词 
+
+		let obj3 = {
+			data:new Set(),
+			keyword(word){
+				this.data.add(word);
+			},
+			show() {
+				let ul =document.querySelector("ul")
+				ul.innerHTML  = ""
+				this.data.forEach(value =>{
+					ul.innerHTML += `<li>${value}</li>`
+				})
+			},
+
+		}
+		let input = document.querySelector("input")
+		input.addEventListener("blur",function(){
+			obj3.keyword(this.value);
+			obj3.show();
+		})
+		console.log("----------交并差--------------")
+		//并集、交集、差集
+		let a = new Set([1,2,4,10])
+		let b = new Set([1,9])
+		console.log("并集[...a,...b]")
+		console.log(new Set([...a,...b]))
+		console.log("交集filter")
+		console.log(a.has(3))
+		console.log([...a].filter(item=> b.has(item)))
+		console.log("差集")
+		console.log([...a].filter(item=> !b.has(item)))
+
+		// 另一种引用类型set  WeakSet 没法同时塞两个 可以同时加一串 .add(['asdf','xxxcv'])
+		//WeakSet 是弱引用类型 无法迭代 引用计数不加 (以为引用了 实则没引用)
+		let c = new WeakSet(['sdkfjl','sdfkjlsa']) 
+		console.log(c)
+
+
+		//垃圾回收机制 看是否引用 同时有引用计数
+		//可以 xu = null 清理
+
+
+
+
+	</script>
+</body>
+</html>

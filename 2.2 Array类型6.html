@@ -115,17 +115,17 @@
 		},0)
 
 		// --------------------Symbol的使用----------------------------------------------
-		//Symbol 用于获取唯一(编号) 永不改变的字符串
+		//Symbol 用于获取唯一(编号) 永不改变的值 拿来产生唯一值作为区分
 		//定义方式
-		console.warn("-------定义方法1-----------")
-		let xu = Symbol("姓名")
+		console.warn("-------定义方法1局部-----------")
+		let xu = Symbol("姓名") //括号内只是注释
 		let sex = Symbol("姓名")
 		console.log(xu)
 		console.log(sex)
 		//获取Symbol的描述
 		console.log(".description:"+sex.description)
 		console.log(`xu == sex:${xu == sex}`)
-		console.log("-------定义方法2-----------")
+		console.log("-------定义方法2全局-----------")
 		//第二种 系统有记录全局变量 是引用类型,还可以用Symbol.keyFor()获取描述
 		let xu2 = Symbol.for("姓名2")
 		let sex2 = Symbol.for("姓名2")

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+		* {
+			margin:0;
+			padding: 0
+		}
+		body {
+			padding:200px 0;
+
+			/*display: flex;
+			height: 100%;
+			width: 100%;
+			justify-content: center;
+			align-items: center;*/
+		}
+		ul {
+			height: 200px;
+			width: 200px;
+			margin:0 auto;
+			display:flex;
+			/*background-color: #872;*/
+			list-style-type: none;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+		}	
+		li {
+			position: relative;
+			width: 200px;
+			height: 50px;
+			/*text-align: center;*/
+			padding-left: 20px;
+			display:block;
+			margin:20px 0;
+			border:1px solid #2ecc71;
+			/*background-color: ;*/
+		}
+		li a {
+			color:#8e44ad;
+			text-decoration-line: none;
+			font:400 20px/20px 微软雅黑;
+		}
+		.x {
+			position:absolute;
+			text-align: center;
+			line-height: 17px;
+			right:10px;
+			top:10%;
+			display:block;
+			width: 20px;
+			height: 20px;
+			color:white;
+			background-color: #f39c12;
+			cursor: pointer;
+		}
+		.remove {
+			background-color: rgba(0,0,0,.2);
+		}
+	</style>
+</head>
+<body>
+
+	<!-- WeakSet 用途:储存 DOM 节点，而不用担心这些节点从文档移除时，会引发内存泄漏。 -->
+	<ul>
+
+		<li><a href="javascript:;">尽可能长点1<span class="x">x</span></a></li>
+		<li><a href="javascript:;">尽可能长点2<span class="x">x</span></a></li>
+		<li><a href="javascript:;">尽可能长点3<span class="x">x</span></a></li>
+	</ul>
+	<script type="text/javascript">
+		class Todo{
+			//自动执行的构造函数
+			constructor() {
+				this.lis = document.querySelectorAll('ul>li')
+				// console.log(this.lis)
+				//放入集合中
+				this.lists = new WeakSet();
+				this.lis.forEach(item=>this.lists.add(item))
+				console.warn(this.lists)
+
+			}
+			run() {
+				this.addEvent()
+			}
+			addEvent(){
+				this.lis.forEach(item =>{
+					let a = item.querySelector("a")
+					a.addEventListener('click',event=>{
+						// a的父级 li
+						const parentElement = event.target.parentElement
+						//如果有li 就加remove 类 并删除 li 反之添加li
+
+						if(this.lists.has(parentElement)){
+
+							console.log(this.lists.has(parentElement))
+							parentElement.classList.add("remove")
+							this.lists.delete(parentElement)
+						}else{
+							parentElement.classList.remove("remove")
+							this.lists.add(parentElement)
+						}
+					})
+					// console.log(a)
+				})
+			}
+		}
+		new Todo().run();
+	</script>
+</body>
+</html>
