@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>批量获取用户</title>
+  </head>
+  <body>
+    <script src="js/ajax.js"></script>
+    <script>
+      // 批量获取用户
+      function getUsers(users) {
+        let promises = users.map((username) => {
+          return ajax(`http://xu.study/user.php?name=${username}`);
+        });
+        Promise.allSettled(promises).then((users) => {
+          //进行过滤 正确的留下
+          let correctUsers = users.filter((user) => {
+            return user.status == 'fulfilled';
+          });
+          console.log(correctUsers);
+        });
+      }
+      getUsers(['李四', '王']);
+    </script>
+  </body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body></body>
+</html>
+<script src="./js/ajax.js"></script>
+<script>
+  //函数也是对象 对象就可以存值
+  function query(name) {
+    //设置缓存 没有就设置map类型缓存
+    const cache = query.cache || (query.cache = new Map());
+    // 检测缓存是否有值 有走缓存
+    if (cache.has(name)) {
+      return Promise.resolve(cache.get(name));
+    }
+    return ajax(`http://xu.study/user.php?name=${name}`).then((user) => {
+      cache.set(name, user); //存入键值
+      return user;
+    });
+  }
+  query('李四').then((v) => console.log(v));
+</script>
