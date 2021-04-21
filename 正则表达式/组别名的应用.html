@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>组别名的应用</title>
+  </head>
+  <body>
+    <main>
+      <a style="color: red" href="http://www.baidu.com">百度</a>
+      <a href="http://www.bilibili.com">bilibili</a>
+      <a href="http://www.xina.com">新浪</a>
+    </main>
+    <script>
+      //   提取出 标题:链接 形式的json格式
+      // 组别名
+      const main = document.querySelector('main');
+      let reg = /<a.*href="(?<link>.+)">(?<title>.+)<\/a>/g;
+      let res = main.innerHTML.matchAll(reg);
+      console.log(res);
+
+      let arr = [];
+      for (let i of res) {
+        //for of 遍历value for in key数组即下标
+        // console.log(i.groups);
+        arr.push(i.groups);
+      }
+      for (let l in arr) {
+        console.log(l);
+      }
+      //   console.log(arr);
+    </script>
+  </body>
+</html>

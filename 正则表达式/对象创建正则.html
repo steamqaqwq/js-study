@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div>sziit.school666</div>
+    <script>
+      // . \d \
+      let con = prompt('请输入检测内容,支持正则');
+      let reg = new RegExp(con, 'g');
+      let context = document.querySelector('div');
+      context.innerHTML = context.innerHTML.replace(reg, (item) => {
+        return `<span style="color:red">${item}</span>`;
+      });
+    </script>
+  </body>
+</html>

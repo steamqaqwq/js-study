@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    生活的态度的态度
+    <script>
+      let tel = '(010)98882334 (020)02348123';
+      let reg = /\((\d{3,4})\)(\d{7,8})/g;
+      let res = tel.match(reg);
+      console.log(tel.replace(reg, '$1-$2'));
+
+      // $` $' $&  正则内容左边 右边 内容
+      let xu = '-xu=';
+      console.log(xu.replace(/xu/, '$`'));
+      console.log(xu.replace(/xu/, "$'"));
+      console.log(xu.replace(/xu/, '$&666'));
+
+      //   小练习 替换态度为连接
+      let body = document.querySelector('body');
+      body.innerHTML = body.innerHTML.replace(/态度/g, "<a href='https://www.baidu.com'>$&</a>");
+    </script>
+  </body>
+</html>

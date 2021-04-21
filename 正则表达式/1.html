@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Docsdfument</title>
+  </head>
+  <body>
+    <script>
+      // 正常过滤出数字
+      let str = 'sdlfkjklj3h2020ljanvc';
+      //   isNaN 判断是否非数字类型
+      let newstr = [...str].filter((item) => {
+        return !isNaN(item);
+      });
+      console.log(newstr.join(''));
+      //   正则表达式 \d数字 \
+      console.log('0--------------');
+
+      console.log(str.match(/\d/g).join(''));
+      console.log(/u/.test(str));
+
+      console.log('RegExp');
+
+      let reg = new RegExp('s', 'g');
+      console.log(reg.test(str));
+    </script>
+  </body>
+</html>

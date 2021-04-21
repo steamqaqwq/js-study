@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>tql sdl!</title>
+  </head>
+  <body>
+    <div>
+      <h4>uuauzzz</h4>
+      <h4>kkkzcv</h4>
+      <h4>ljkwexxxx</h4>
+    </div>
+    <script>
+      'use strict';
+      //   matchAll 全局查找替换
+      String.prototype.matchAll = function (reg) {
+        //   原型链 this 指向数据类型
+        let res = this.match(reg);
+
+        if (res) {
+          let str = this.replace(res[0], '|'.repeat(res[0].length));
+          let match = str.matchAll(reg) || [];
+          return [res, ...match];
+        }
+      };
+      let test = 'uuuaudu';
+      let res = test.matchAll(/u/gi);
+      console.log(res);
+      let body = document.querySelector('body').innerHTML;
+      let search = body.matchAll(/<(h[1-6])>([\s\S]+?)<\/\1>/i);
+      console.log(search);
+    </script>
+  </body>
+</html>

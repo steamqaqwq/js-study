@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>断言</title>
+  </head>
+  <body>
+    <main>
+      <a href="https://www.baidu.com">百度</a>
+      <a href="https://www.sss.com">xxx</a>
+    </main>
+    <script>
+      // 格式统一 xx.0元
+      let lessons = `
+          js,200元,300次
+          vue,100.0元,20次
+          html,10元,1000次
+    `;
+      let reg = /(\d+)(.0)?(?=元)/g;
+      let res = lessons.match(reg);
+      console.log(res);
+
+      lessons = lessons.replace(reg, (v, ...args) => {
+        args[1] = args[1] || '.0';
+        console.log(args);
+
+        return args.splice(0, 2).join('');
+      });
+      console.log(lessons);
+
+      //   断言2 前面条件
+      let main = document.querySelector('body main');
+      //   查找 前面是href 后面是 "的地址
+      let regAssert = /(?<=href=(["'])).+(?=\1)/g;
+      console.log(main.innerHTML.match(regAssert));
+      main.innerHTML = main.innerHTML.replace(regAssert, 'www.baidu.com');
+      //电话
+    </script>
+  </body>
+</html>

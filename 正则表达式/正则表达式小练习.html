@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      function numberWithCommas(x) {
+        //对右侧人口数字的格式化处理，三位数字用一个','(逗号)隔开
+
+        let res = x.toString().matchAll(/(?=(\d{3})+(?!\d))/g);
+        for (const iterator of res) {
+          console.log(iterator);
+        }
+      }
+      console.log(numberWithCommas(12345678)); //12,345,678
+    </script>
+  </body>
+</html>

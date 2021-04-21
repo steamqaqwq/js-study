@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>原子表应用 邮箱匹配</title>
+  </head>
+  <body>
+    <h1>我是谁</h1>
+    <h2>2333</h2>
+    <p>rrr</p>
+    <h4></h4>
+    <h2>sdfkj asdfasdf</h2>
+    <h6>9999</h6>
+    <input type="text" />
+    <span></span>
+    <script>
+      'use strict';
+      let reg = /<(h[1-6])>[\s\S]*<\/\1>/gi;
+      let body = document.body;
+      body.innerHTML = body.innerHTML.replace(reg, '');
+
+      // 邮箱验证
+      //129410417@qq.com.cn
+      let reg2 = /^\d+@(\w+\.)+(cn|com)$/i; //'+'对组有一个或多个
+      let input = document.querySelector('input');
+      input.addEventListener('keyup', function () {
+        let flag = input.value.match(reg2);
+        console.log(input.value);
+        document.querySelector('span').innerHTML = flag ? '正确' : '错误';
+      });
+    </script>
+  </body>
+</html>

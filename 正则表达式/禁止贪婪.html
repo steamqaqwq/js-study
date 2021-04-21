@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div>
+      <span>111111</span>
+      <span>22222</span>
+      <span>3333333</span>
+    </div>
+    <script>
+      // 描红 span变h2
+      let reg = /<span>([\s\S]+?)<\/span>/gi; //#禁止贪婪连着span
+
+      //   document.querySelectorAll('span').forEach((item) => {
+      //     console.log(item);
+      //     item.replace(reg, (v) => {
+      //       console.log(v);
+      //     });
+      //   });
+      let div = document.querySelector('div');
+      let anew = div.innerHTML.replace(reg, (v, p1) => {
+        return `<h2>${p1}</h2>`;
+      });
+      div.innerHTML = anew;
+    </script>
+  </body>
+</html>

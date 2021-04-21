@@ -1,82 +1,84 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<title>Document</title>
-	<style type="text/css">
-		ul {
-			list-style-type: none;
-		}
-		li {
-			height: 30px;
-			line-height: 30px;
-			margin:5px 0;
-			background-color: #3498db;
-			text-decoration:none;
-		}
-		li a{
-			text-decoration:none;
-			color:#e74c3c;
-		}
-	</style>
-</head>
-<body>
-	<input type="text" name="passwd">
-	<script type="text/javascript">
-		//字符串字面量测试
-		// let a = "我"
-		// let b = "nb"
-		// console.log(`哈哈哈,${a}最${b}`)
+  <head>
+    <meta charset="UTF-8" />
+    <title>Document</title>
+    <style type="text/css">
+      ul {
+        list-style-type: none;
+      }
+      li {
+        height: 30px;
+        line-height: 30px;
+        margin: 5px 0;
+        background-color: #3498db;
+        text-decoration: none;
+      }
+      li a {
+        text-decoration: none;
+        color: #e74c3c;
+      }
+    </style>
+  </head>
+  <body>
+    <input type="text" name="passwd" />
+    <script type="text/javascript">
+      //字符串字面量测试
+      // let a = "我"
+      // let b = "nb"
+      // console.log(`哈哈哈,${a}最${b}`)
 
-		//
+      //
 
-		let classs = [
-			{title:"第一个标题",content:"3-1班"},
-			{title:"第二个标题",content:"3-2班"},
-			{title:"第三个标题",content:"3-3班"}
-		];
-		// strs 是``的字符串数组 ...values是``的变量(此为2个) values是变量数组
-		function links(strs,...values){
-			// console.log(values)
-			//遍历字符串数组 str是字符串 index是索引
-			return strs.map((str,index)=>{
-				// console.log(str)
-				return (
-					//+()是因为优先它
-					// 判断是否存在变量 ↓没有values[2]
-					str+(values[index]?values[index].replace("班",`<a href="https://www.baidu.com">班级</a>`):"")
-					)
-			}).join("") //将空字符连接
-		}
-		
-		function template(){
-			return `<ul> 
-			${classs.map(item=>links`<li>${item.content}是${item.title}</li>`).join("")}</ul>`
-		}
-		document.write(template())
+      let classs = [
+        { title: '第一个标题', content: '3-1班' },
+        { title: '第二个标题', content: '3-2班' },
+        { title: '第三个标题', content: '3-3班' }
+      ];
+      // strs 是``的字符串数组 ...values是``的变量(此为2个) values是变量数组
+      function links(strs, ...values) {
+        // console.log(values)
+        //遍历字符串数组 str是字符串 index是索引
+        return strs
+          .map((str, index) => {
+            // console.log(str)
+            return (
+              //+()是因为优先它
+              // 判断是否存在变量 ↓没有values[2]
+              str + (values[index] ? values[index].replace('班', `<a href="https://www.baidu.com">班级</a>`) : '')
+            );
+          })
+          .join(''); //将空字符连接
+      }
 
+      function template() {
+        return `<ul> 
+			${classs.map((item) => links`<li>${item.content}是${item.title}</li>`).join('')}</ul>`;
+      }
+      document.write(template());
 
-		// 字符串基本函数使用 -- 监听密码长度
-		let passwd = document.querySelector("[name=passwd]")
-		passwd.addEventListener("keyup",function(){
-			error =""
-			passwd.value = passwd.value.trim()
-			if (passwd.value.length <=5){
-				error="密码小于5"
-				document.body.append(`${error}<br>`)
-				console.log(error)
-			}else{console.log("密码相对安全")}
-			console.log(passwd.value.trim().length)
-		})
-		document.body.append()
-		
-		//documentFragment 最快的写入方式
-		// let fragment = document.createDocumentFragment()
-		// el = document.createElement("span")
-		// el.innerHTML = "Xu"
-		// fragment.appendChild(element)
-		// div.appendChild(fargment)
+      // 字符串基本函数使用 -- 监听密码长度
+      let passwd = document.querySelector('[name=passwd]');
+      passwd.addEventListener('keyup', function () {
+        error = '';
+        passwd.value = passwd.value.trim();
+        if (passwd.value.length <= 5) {
+          error = '密码小于5';
+          document.body.append(`${error}<br>`);
+          console.log(error);
+        } else {
+          console.log('密码相对安全');
+        }
+        console.log(passwd.value.trim().length);
+      });
+      document.body.append();
 
-	</script>
-</body>
+      //documentFragment 最快的写入方式
+      // let fragment = document.createDocumentFragment()
+      // el = document.createElement("span")
+      // el.innerHTML = "Xu"
+      // fragment.appendChild(element)
+      // div.appendChild(fargment)
+    </script>
+  </body>
 </html>

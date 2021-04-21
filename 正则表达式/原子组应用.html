@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>原子组</title>
+  </head>
+  <body>
+    <script>
+      // 将 h标签替换成p标签
+      let text = `
+            <h1>renrenren</h1>
+            <span>人</span>
+            <h2>汪汪汪</h2>
+        `;
+      let reg = /<(h[1-5])>([\s\S]+)<\/\1>/gi;
+      // $1 $2 是replace自带 表示组号
+      let newtext = text.replace(reg, '<p>$2<\/p>');
+      // 第二种写法  p0整个内容,p2第二组 #()=>xxx 没有花括号直接return
+      let res = text.replace(reg, (p0, p1, p2) => `<p>${p2}</p>`);
+      console.log(newtext);
+
+      //    原子组应用2 嵌套括号和不记录组
+      // 原子组里的?:忽略组(?:xxx) 无法$1 $2
+
+      // 提取域名
+      let domain = `
+    https://www.bilibili.com/video/BV12J41147fC?p=27&spm_id_from=pageDriver
+    https://www.runoob.com/js/js-strict.html
+    http://blog.csdn.net/z591102/article/details/105135280
+    `;
+      let domainReg = /https?:\/\/([^\/]+)\//gi;
+      let domainReg2 = /https?:\/\/((?:\w+\.)?\w+\.(?:com|org|cn|net))/gi;
+      let urls = [];
+      while ((res = domainReg2.exec(domain))) {
+        urls.push(res[1]);
+      }
+      console.log(urls);
+
+      //   console.log(domain.match(domainReg2));
+    </script>
+  </body>
+</html>

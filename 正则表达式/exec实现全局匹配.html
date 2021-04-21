@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div>
+      <h4>uuauzzz</h4>
+      <h4>kkkzcv</h4>
+      <h4>ljkwexxxx</h4>
+    </div>
+    <script>
+      let body = document.querySelector('body').innerHTML;
+      let result = [];
+      function searchAll(str, reg) {
+        while ((res = reg.exec(str))) {
+          result.push(res);
+        }
+      }
+      //   console.log(t);
+
+      searchAll(body, /<(h[1-5])>([\s\S]+?)<\/\1>/gi);
+      console.log(result);
+    </script>
+  </body>
+</html>

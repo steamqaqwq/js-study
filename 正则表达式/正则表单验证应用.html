@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>用户名</title>
+    <style>
+      form {
+        height: 300px;
+        width: 300px;
+        flex-direction: column;
+      }
+      div {
+        width: 70%;
+        height: 30px;
+      }
+    </style>
+  </head>
+  <body>
+    <form action="" style="display: flex">
+      <div><input type="text" name="user" /><span id="username"></span></div>
+      <div><input type="password" name="pa" /><span id="pa"></span></div>
+    </form>
+    <script>
+      user = document.querySelector(`[name="user"]`);
+      pa = document.querySelector(`[name="pa"]`);
+      let all = document.querySelectorAll('input');
+      regarr = [/^[a-z]\d{4}\w$/, /A/];
+      all.forEach((item) => {
+        item.addEventListener('keyup', (e) => {
+          let val = e.target.value;
+          let res = regarr.every((reg) => reg.test(val));
+          console.log(res);
+        });
+      });
+    </script>
+  </body>
+</html>
