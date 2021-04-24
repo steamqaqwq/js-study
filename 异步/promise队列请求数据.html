@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>队列请求数据</title>
+  </head>
+  <body>
+    <script>
+      class User {
+        render(users) {
+          users.reduce((pre, cur) => {
+            return pre.then((_) => {
+              return this.ajax(cur).then((user) => {
+                this.view(user);
+              });
+            });
+          }, Promise.resolve());
+        }
+        view(user) {
+          return new Promise((resolve) => {
+            let h2 = document.createElement('h2');
+            h2.innerHTML = user.name;
+            document.body.appendChild(h2);
+            resolve();
+          });
+        }
+        ajax(username) {
+          return new Promise((resolve, reject) => {
+            let url = `http://xu.study/user.php`;
+            let xhr = new XMLHttpRequest();
+            xhr.open('GET', `${url}?name=${username}`);
+            xhr.send();
+            xhr.onload = function () {
+              if (this.status == 200) {
+                resolve(JSON.parse(this.response));
+              } else if (this.status == 404) {
+                reject(new HttpError('用户不存在'));
+              } else {
+                reject('加载失败');
+              }
+            };
+            xhr.onerror = function () {
+              reject(this);
+            };
+          });
+        }
+      }
+      new User().render(['王五', '李四']);
+    </script>
+  </body>
+</html>

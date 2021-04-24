@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>class await</title>
+  </head>
+  <body>
+    <script src="js/ajax.js"></script>
+    <script>
+      class User {
+        constructor(name) {
+          this.name = name;
+        }
+        then(resolve, reject) {
+          let user = ajax(`http://xu.study/user.php?name=${this.name}`);
+          resolve(user);
+        }
+      }
+      async function getUser(username) {
+        let user = await new User(username);
+        console.log(user);
+      }
+      //   getUser('王五');
+
+      //   异步封装到类
+      class User2 {
+        async getUser(user) {
+          //  await 使得异步同步化 先获取到user 再改变属性
+          let userinfo = await ajax(`http://xu.study/user.php?name=${user}`);
+          //给username加前缀
+          userinfo.name = '法外狂徒-' + userinfo.name;
+          return userinfo;
+        }
+      }
+      new User2().getUser('张三').then((user) => console.log(user));
+    </script>
+  </body>
+</html>

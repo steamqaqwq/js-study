@@ -1,6 +1,10 @@
 # 异步
 
+[TOC]
+
 > JS异步实质 使用模块处理数据时 放到任务列表 在主任务完成后轮询任务列表 
+>
+> promise相关练习题：https://juejin.cn/post/6844904077537574919
 
 回调地狱：不断的回调函数操作将产生回调地狱，使代码很难维护
 
@@ -8,11 +12,15 @@
 
 promise 应用
 
-1. 解决回调地狱 更加扁平化  更有层次性 而非嵌套再嵌套 
+1. 解决回调地狱 更加扁平化  更有层次性 而非函数嵌套再嵌套 
 
 ## promise
 
-- 一个普通的promise 
+- promise "**承诺**" :承诺先完成上个异步操作再接续运行。
+
+  **核心**：将嵌套的异步操作扁平化成链式操作，使得异步操作更加清晰，便于维护。
+  
+- 一个普通的promise写法
 
   promise 状态改变后不会再改变
 
@@ -29,8 +37,6 @@ let p1 = new Promise((resolve,reject)=>{
     }
 )
 ```
-
-
 
 - promise事件顺序体会
 
@@ -109,7 +115,7 @@ new Promise((resolve,reject)=>{
 
 - finally 无论成功与否都会执行
 
-## promise应用小案例-图片加载
+## promise应用小案例-封装图片加载
 
 ```js
 function loadimg(src) {
@@ -133,7 +139,7 @@ loadimg('./img.jpg').then((image) => {
 
 效果
 
-<img src="C:\Users\QAQWQ\AppData\Roaming\Typora\typora-user-images\image-20210421162249556.png" alt="image-20210421162249556" style="zoom:50%;" />
+<img src="https://gitee.com/steamqaqwq/drawingbed/raw/master/markdown/20210423134500.png" alt="image-20210421162249556" style="zoom:50%;" />
 
 ## promise数据缓存
 
@@ -157,7 +163,7 @@ loadimg('./img.jpg').then((image) => {
   query('李四').then((v) => console.log(v));
 ```
 
-![效果图](C:\Users\QAQWQ\AppData\Roaming\Typora\typora-user-images\image-20210421230710992.png "RUNOOB")
+![效果图](https://gitee.com/steamqaqwq/drawingbed/raw/master/markdown/20210423134629.png "RUNOOB")
 
 <center>效果图</center>
 
@@ -167,7 +173,7 @@ loadimg('./img.jpg').then((image) => {
 
   - 等同于 new Promise((resolve,reject)=>{resolve()})
 
-- Promise.reject() //直接发送错误
+- Promise.reject() //直接发送错误消息
 
 - Promise.all([promise1,promise2...]) //批量处理promise 
 
@@ -185,7 +191,7 @@ loadimg('./img.jpg').then((image) => {
   - ```js
     // promise 其中一个拒绝
     let promise1 = new Promise(resolve=>resolve("OK"))
-    let promise2 = new Promise((resolve,reject)=>reject("失败")) //如果当前promise处理异常则 
+    let promise2 = new Promise((resolve,reject)=>reject("失败")) //如果处理异常则状态为成功
     Promise.all([promise1,promise2]).then(
         success=>{
             console.log(success) 
@@ -206,7 +212,7 @@ loadimg('./img.jpg').then((image) => {
     getUsers(['李四', '王五']); 
     ```
 
-     ![image-20210421234556127](C:\Users\QAQWQ\AppData\Roaming\Typora\typora-user-images\image-20210421234556127.png)
+     ![image-20210421234556127](https://gitee.com/steamqaqwq/drawingbed/raw/master/markdown/20210423134658.png)
 
 - Promise.allSettled([promise1,promise2...]) //不管成功与否都算成功 但有状态值
 
@@ -227,26 +233,258 @@ loadimg('./img.jpg').then((image) => {
   getUsers(['李四', '王']);
   ```
 
-  ![image-20210421235641232](C:\Users\QAQWQ\AppData\Roaming\Typora\typora-user-images\image-20210421235641232.png)
+  ![image-20210421235641232](https://gitee.com/steamqaqwq/drawingbed/raw/master/markdown/20210423134701.png)
 
 <center>原先返回值</center>
-![image-20210422000415406](C:\Users\QAQWQ\AppData\Roaming\Typora\typora-user-images\image-20210422000415406.png)
+![image-20210422000415406](https://gitee.com/steamqaqwq/drawingbed/raw/master/markdown/20210423134704.png)
 
 <center>过滤返回值</center>
 
 - Promise.race([promise1,promise2...]) //返回时间用时更短promise
 
   ```js
-   let promise1 = new Promise((resolve, reject) => {
-          setTimeout(() => {
-            resolve('promise1');
-          }, 200);
-        });
-        let promise2 = new Promise((resolve, reject) => {
-          setTimeout(() => {
-            resolve('promise2');
-          }, 1000);
-        });
-        Promise.race([promise1, promise2])
-           .then((value) => console.log(value)); //promise1
+  let promise1 = new Promise((resolve, reject) => {
+      setTimeout(() => {
+          resolve('promise1');
+      }, 200);
+  });
+  let promise2 = new Promise((resolve, reject) => {
+      setTimeout(() => {
+          resolve('promise2');
+      }, 1000);
+  });
+  Promise.race([promise1, promise2])
+      .then((value) => console.log(value)); //promise1
   ```
+
+## promise队列
+
+设置promise任务列表 根据上一个promise状态依次执行 
+
+每次的then返回新promise
+
+```js
+let numarr = [1,2,3,4,5]
+function queue(numarr){
+        let promise = Promise.resolve();
+        numarr.map(num=>{      
+            promise = promise.then(_=>{ //_ 表示空传值
+                return new Promise((resolve,reject)=>{
+                    setTimeout(_=>{
+                        console.log(num) 
+                        resolve()        
+                    },1000)
+                })
+        })
+    })
+}
+queue(numarr) //每隔一秒依次打印 1 2 3 4 5
+```
+
+```js
+function f1(){
+    return new Promise(resolve=>{
+        setTimeout(()=>{
+            console.log("f1")
+            resolve()        
+        },1000)
+    })
+}
+function f2(){
+    return new Promise(resolve=>{
+        setTimeout(()=>{
+            console.log("f2")
+            resolve()        
+        },2000)
+    })
+}
+function queuef(promisesArr){
+    let promise = Promise.resolve();
+    promisesArr.map((f)=>{      
+        promise = promise.then(_=>{ //_ 表示空传值
+            return f();
+    })
+    })
+}
+queuef([f1,f2]) //依次打印 f1 f2
+```
+
+```js
+//用reduce实现promise队列
+function reduceQueue(nums){
+    nums.reduce((promise,cur)=>{ //reduce((pre,cur),intValue)
+        return promise.then(_=>{
+            return new Promise((resolve)=>{
+                setTimeout(() => {
+                    console.log(cur)
+                    resolve()
+                }, 1000);
+            })
+        })
+       
+    },Promise.resolve())
+}
+reduceQueue([1,2,3,4,5]) //每隔一秒依次打印 1 2 3 4 5
+```
+
+**队列请求后台数据**
+
+```js
+class User {
+    // 实现任务队列
+    render(users) {
+        users.reduce((pre, cur) => {
+            return pre.then((_) => {
+                return this.ajax(cur).then((user) => {
+                    this.view(user);
+                });
+            });
+        }, Promise.resolve());
+    }
+    //渲染数据到页面
+    view(user) {
+        return new Promise((resolve) => {
+            let h2 = document.createElement('h2');
+            h2.innerHTML = user.name;
+            document.body.appendChild(h2);
+            resolve();
+        });
+    }
+    ajax(username) {
+        return new Promise((resolve, reject) => {
+            let url = `http://xu.study/user.php`;
+            let xhr = new XMLHttpRequest();
+            xhr.open('GET', `${url}?name=${username}`);
+            xhr.send();
+            xhr.onload = function () {
+                if (this.status == 200) {
+                    resolve(JSON.parse(this.response));
+                } else if (this.status == 404) {
+                    reject(new HttpError('用户不存在'));
+                } else {
+                    reject('加载失败');
+                }
+            };
+            xhr.onerror = function () {
+                reject(this);
+            };
+        });
+    }
+}
+new User().render(['王五', '李四']); //页面逐个渲染出h2 后台延迟1秒
+```
+
+## async & await 
+
+### async 和await 都是Promise 语法糖 
+
+- async一个是promise简写
+- await一个then简写
+- await 只能在async函数内写
+- await 后面跟promise
+
+实质使异步变同步
+
+```js
+//async
+new Promise((resolve,reject)=>{
+    resolve("OK")
+}).then(v=>console.log(v)) //OK
+//比较 f1返回promise
+async function f1(){
+    return "Ok2"
+}
+f1().then(v=>console.log(v)) //Ok2
+```
+
+```js
+//await 异步同步化
+async function hd(message) {
+    return new Promise(resolve => {
+        setTimeout(() => {
+            resolve(message);
+        }, 2000);
+    });
+}
+async function run() {
+    let h1 = await hd("1");
+    console.log(h1);
+    let h2 = await hd("2");
+    console.log(h2);
+}
+run();// 2秒后输出1  再2秒后输出2
+```
+
+```js
+//体会await是then语法糖
+async function getUser(name) {
+    let host = 'http://xu.study';
+    let user1 = await ajax(`${host}/user.php?name=${name}`);
+    console.log(user1);
+    let user2 = ajax(`${host}/user.php?name=${name}`).then((v) => console.log(v));
+    //user1 等同于 user2
+    //明显await语法糖不用then回调函数 更加优雅简洁
+}
+getUser('王五');
+```
+
+### sleep函数简单实现
+
+```js
+let arr =[1,2,3,4,5]
+async function sleep(time=1000){
+    return new Promise(resolve=>{
+        setTimeout(_=>{
+            resolve();
+        },time)
+    })
+
+async function delayArr(arr){
+    // forEach 里是for循环回调函数 相当于 for 循环执行了这个异步函数，所以是并行执行
+    for (const iterator of arr) {
+        await sleep(1000);
+        console.log(iterator)
+    }
+}
+delayArr(arr) //每隔一秒一次打印一个元素 
+```
+
+### 进度条实现
+
+```js
+(async () => { //立即执行函数
+    let users = ['张三', '李四', '王五', '赵六'];
+    let count = 0;
+    for (let i of users) {
+        let user = await ajax(`http://xu.study/user.php?name=${i}`);
+        console.log(user);
+        let load = document.querySelector('#loading');
+        let widthPercent = Math.round((++count / users.length) * 100);
+        console.log(widthPercent);
+        load.style.width = widthPercent + '%';
+        load.innerHTML = widthPercent + '%';
+    }
+})();
+```
+
+![GIF 2021-4-22 17-03-25](https://gitee.com/steamqaqwq/drawingbed/raw/master/markdown/20210423134712.gif)
+
+### 类的结合
+
+```js
+class User {
+    constructor(name) {
+        this.name = name;
+    }
+    then(resolve, reject) {
+        let user = ajax(`http://xu.study/user.php?name=${this.name}`);
+        resolve(user);
+    }
+}
+async function getUser(username) {
+    let user = await new User(username);
+    console.log(user);
+}
+getUser('王五');
+```
+
