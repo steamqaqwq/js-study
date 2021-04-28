@@ -379,7 +379,10 @@ new User().render(['王五', '李四']); //页面逐个渲染出h2 后台延迟1
 ### async 和await 都是Promise 语法糖 
 
 - async一个是promise简写
-- await一个then简写
+- **async 返回值会变成promise对象**
+- await相当于promise then简写 
+  - 使用await的当前句promise内部 其后为then内部
+  - await 
 - await 只能在async函数内写
 - await 后面跟promise
 

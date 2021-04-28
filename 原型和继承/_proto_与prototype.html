@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      function User() {}
+      let u = new User();
+      console.dir(User);
+      console.log(u);
+      User.prototype.show = function () {
+        console.log('show prototype');
+      };
+      //   通过构造函数实例化的对象 原型添加show
+      u.__proto__.show = function () {
+        console.log('show __proto__');
+      };
+      console.log(u.__proto__.show == User.prototype.show);
+
+      u.show();
+    </script>
+  </body>
+</html>

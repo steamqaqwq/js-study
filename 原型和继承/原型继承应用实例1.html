@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>切换选项卡 组件化思想</title>
+    <style>
+      a {
+        /* list-style: none; */
+        text-decoration: none;
+      }
+      body {
+        display: flex;
+        flex-direction: row;
+      }
+      nav {
+        display: flex;
+        flex-direction: row;
+        text-align: center;
+      }
+      nav a {
+        display: block;
+        box-sizing: border-box;
+        height: 30px;
+        width: 50px;
+        line-height: 30px;
+        border: 1px solid black;
+      }
+      nav .div1 {
+        color: black;
+        background-color: #2ecc71;
+      }
+      nav .div2 {
+        color: white;
+        background-color: #3498db;
+      }
+      #box {
+        margin-top: 5px;
+        height: 300px;
+        width: 300px;
+        line-height: 300px;
+        text-align: center;
+
+        color: hsl(210, 29%, 24%);
+        font-size: 50px;
+      }
+      main {
+        position: relative;
+        margin-left: 20px;
+        /* float: left; */
+        /* height: */
+      }
+      section {
+        /* position: absolute; */
+        /* bottom: 10px; */
+      }
+    </style>
+  </head>
+  <body>
+    <main class="tab1">
+      <nav>
+        <a href="javascript:void(0);" class="div1">选项1</a>
+        <a href="javascript:void(0);" class="div2">选项2</a>
+      </nav>
+      <section id="box" style="background-color: #23cc2c">1</section>
+      <section style="display: none; background-color: #1b58bb" id="box">2</section>
+    </main>
+    <main class="tab2">
+      <nav>
+        <a href="javascript:void(0);" class="div1">选项1</a>
+        <a href="javascript:void(0);" class="div2">选项2</a>
+      </nav>
+      <section id="box" style="background-color: #23cc2c">1</section>
+      <section style="display: none; background-color: #1b58bb" id="box">2</section>
+    </main>
+    <script>
+      // 封装个动画函数 让tab标签继承
+      function extend(sub, sup) {
+        sub.prototype = Object.create(sup.prototype);
+        sub.prototype.construtor = sup;
+      }
+      function animation() {}
+      animation.prototype.hide = function () {
+        this.style.display = 'none';
+      };
+      animation.prototype.show = function () {
+        this.style.display = 'block';
+      };
+      animation.prototype.background = function (color = 'red') {
+        this.style.backgroundColor = color;
+      };
+      function Tab(obj) {
+        // 设置默认属性
+        obj = Object.assign({ el: null, link: 'a', section: 'section', callback: null }, obj);
+        this.tab = document.querySelector(obj.el);
+        this.links = this.tab.querySelectorAll(obj.link);
+        this.sections = this.tab.querySelectorAll(obj.section);
+        this.callback = obj.callback;
+      }
+      extend(Tab, animation);
+
+      Tab.prototype.run = function () {
+        this.bindEvent();
+      };
+      Tab.prototype.bindEvent = function () {
+        this.links.forEach((el, i) => {
+          el.addEventListener('click', () => {
+            this.reset();
+            this.action(i);
+            if (this.callback) this.callback();
+          });
+        });
+      };
+      // 重置 点击时统一设置标签颜色 隐藏所有区块内容
+      Tab.prototype.reset = function () {
+        this.links.forEach((el, i) => {
+          this.background.call(this.links[i], '#2ecc71');
+          this.hide.call(this.sections[i]);
+        });
+      };
+      // 执行动作 显示当前点击标签颜色 显示当前点击区块内容
+      Tab.prototype.action = function (i) {
+        this.background.call(this.links[i], '#3498db');
+        this.show.call(this.sections[i]);
+      };
+      // 创建实例并运行
+      new Tab({
+        el: '.tab1',
+        callback() {
+          console.log('tab1');
+        }
+      }).run();
+      new Tab({
+        el: '.tab2'
+      }).run();
+    </script>
+  </body>
+</html>

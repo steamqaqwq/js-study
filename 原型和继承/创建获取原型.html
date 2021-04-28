@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      let child = { name: '孩子' };
+      let parent = {
+        name: '父母',
+        show() {
+          console.log('孩子的父母');
+        }
+      };
+      Object.setPrototypeOf(child, parent); //设置原型
+      console.log(child);
+      child.show(); //使用原型的方法
+      console.log(Object.getPrototypeOf(child)); //获取孩子原型
+    </script>
+  </body>
+</html>

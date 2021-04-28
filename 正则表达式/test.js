@@ -1,14 +1,26 @@
-str = `心花怒放 200G
-百花齐放 200G
-繁花似锦 200G
-店铺大卖 300G
-浪漫樱花 50G
-俏皮格桑 50G
-娇羞海棠 50G
-热情扶桑 20G
-`
-let chengyu = str.match(/\p{sc=Han}{4}/gu)
-console.log(chengyu)
+// 实现mergePromise函数，把传进去的promise数组按顺序先后执行，并且把返回的数据先后放到数组data中。
+// Promise.all()按顺序
+let promise1 = Promise.resolve(1);
+let promise2 = Promise.resolve(2);
+let promise3 = Promise.resolve(5);
 
-chengyu.forEach(v=>console.log(v+'\n')
-)
+async function mergePromise(promarr){
+    function setTime(x,promise){
+        return new Promise(resolve=>{
+            setTimeout(()=>{
+                resolve(promise)
+            },x*1000)
+        })
+    }
+    resarr=[]
+    for (const promise of promarr) {
+         let res = await setTime(1,promise);
+         console.log(res)
+         resarr.push(res);
+    }
+    console.log("done")
+    console.log(resarr)
+    
+    return resarr;
+}
+mergePromise([promise1,promise2,promise3])

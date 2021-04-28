@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>对象</title>
+  </head>
+  <body>
+    <script>
+      function User(name, age) {
+        this.name = name;
+        this.age = age;
+      }
+      User.prototype.show = function () {
+        console.log(this.name, this.age);
+      };
+      function member(name, age) {
+        const member = Object.create(User.prototype);
+        User.call(member, name, age);
+        member.role = function () {
+          console.log('Member');
+        };
+        return member;
+      }
+      let member1 = member('网抽', 19);
+      member1.show();
+    </script>
+  </body>
+</html>
