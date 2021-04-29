@@ -496,7 +496,7 @@ new Tab('.tab1').run();
 new Tab('.tab2').run();
 ```
 
-![GIF 2021-4-28 11-46-30](C:\Users\QAQWQ\Desktop\GIF%202021-4-28%2011-46-30.gif)
+![GIF 2021-4-28 11-46-30](https://gitee.com/steamqaqwq/drawingbed/raw/master/markdown/GIF%202021-4-28%2011-46-30.gif)
 
 <center style="color:#95a5a6">效果</center>
 

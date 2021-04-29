@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      class User {
+        constructor(name, age) {
+          this.name = name;
+          this.age = age;
+        }
+        static create(...args) {
+          //等同于new User() 此时User调用create  User是create对象 this指向User
+          return new this(...args);
+        }
+      }
+      let lisi = User.create('李四', 18);
+      console.log(lisi);
+
+      // 课程管理
+      const data = [
+        { name: 'js', price: 100 },
+        { name: 'mysql', price: 212.22 },
+        { name: 'vue.js', price: 98 }
+      ];
+
+      class Lesson {
+        constructor(data) {
+          this.model = data;
+        }
+        // 访问器 执行函数
+        get price() {
+          return Math.round(this.model.price);
+        }
+        //批量创建 并对name 首字母大写
+        static createLesson(data) {
+          return data.map((lesson) => {
+            // 复习知识写的麻烦点
+            lesson.name = lesson.name.replace(/(\w)/, (p0, p1) => p1.toUpperCase());
+            return lesson;
+          });
+        }
+        //统计
+        static totalPrice(data) {
+          return data.reduce((total, lesson) => {
+            return total + lesson.price;
+          }, 0);
+        }
+        //最贵课程
+        static MaxPrice(data) {
+          return data.sort((a, b) => b.price - a.price)[0];
+        }
+      }
+      let lessons = Lesson.createLesson(data);
+      console.log(lessons);
+      console.log('课程总花费', Lesson.totalPrice(lessons));
+      console.log('最贵课程花费', Lesson.MaxPrice(lessons));
+    </script>
+  </body>
+</html>
