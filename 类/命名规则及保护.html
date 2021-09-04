@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      let protected = Symbol();
+      class User {
+        constructor() {
+          this[protected]._url = 'https://www.xxu.com';
+        }
+        set url(url) {
+          try {
+            //对url进行简单验证
+            if (!/^https?:\/\//.test(url)) {
+              throw new Error('地址格式错误');
+            }
+            this[protected]._url = url;
+          } catch (e) {
+            console.log('%c' + e.message, 'color:red');
+          }
+        }
+        get url() {
+          return this[protected]._url + '/' + this._name;
+        }
+      }
+      let lisi = new User('李四');
+      //   lisi.url = 'http'; //设置和获取时不会暴露私有属性
+      //   console.log(lisi.url);
+    </script>
+  </body>
+</html>

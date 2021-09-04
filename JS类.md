@@ -1,6 +1,6 @@
 # JS类
 
-比原型更舒服 实际还是原型:joy:
+类作为原型的语法糖,比原型更舒服 实际还是原型:joy:
 
 ## 类体验
 
@@ -30,7 +30,7 @@ zhangs.show(); //张三
 
 - 结构
 
-![image-20210429092711942](C:\Users\QAQWQ\AppData\Roaming\Typora\typora-user-images\image-20210429092711942.png)
+![image-20210429092711942](https://gitee.com/steamqaqwq/drawingbed/raw/master/markdown/image-20210429092711942.png)
 
 - 特征
 
@@ -189,4 +189,63 @@ lisi.name = '王五'; //设置经过访问器
 console.log(lisi.name); //获取经过访问器
 //结果打印： 王五名字长度<3
 ```
+
+## 命名规则及其保护
+
+- 保护1:设置私有属性  访问器设置属性 不暴露私有属性
+  - 缺点：人为操控 依旧可用对私有属性直接设置 `lisi._url=xxx`
+
+```js
+class User {
+    _url = 'https://www.xxu.com'; //'_'表示私有属性
+    constructor(name) {
+        this._name = name;
+    }
+    set url(url) {
+        try {
+            //对url进行简单验证
+            if (!/^https?:\/\//.test(url)) {
+                throw new Error('地址格式错误');
+            }
+            this._url = url;
+        } catch (e) {
+            console.log('%c' + e.message, 'color:red');
+        }
+    }
+    get url() {
+        return this._url + '/' + this._name;
+    }
+}
+let lisi = new User('李四');
+lisi.url = 'http'; //设置和获取时不会暴露私有属性
+console.log(lisi.url);
+```
+
+- 保护2:  设置symbol()属性 只能通过访问器设置
+- 保护3：设置weakmap属性
+- 保护4：设置为私有属性private
+  - 给需要保护的属性 前添加"#" 如 #_url 外部不可直接访问
+  - 私有函数 = 私有属性 需要将函数定义为属性 如 #show = ()=>{} 
+
+# 类的继承
+
+```js
+class User {
+    constructor(name, age) {
+        this.name = name;
+        this.age = age;
+    }
+}
+class Admin extends User {
+    constructor(...args) {
+        super(...args);
+    }
+}
+let lisi = new Admin('李四', 18);
+console.log(lisi);
+```
+
+引用关键字"super"
+
+![image-20210805084755481](https://gitee.com/steamqaqwq/drawingbed/raw/master/markdown/image-20210805084755481.png)
 
